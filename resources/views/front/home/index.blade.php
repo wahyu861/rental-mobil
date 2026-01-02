@@ -8,4 +8,5 @@
     @include('front.home.sections.brand')
     @include('front.home.sections.testimoni')
     @include('front.home.sections.blog')
+    @include('front.home.sections.bookform')
 </x-front-layout>

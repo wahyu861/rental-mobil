@@ -8,10 +8,10 @@
                 <div class="main-menu__nav">
                     <ul class="main-menu__list">
                         <li>
-                            <a href="">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li>
-                            <a href="">About us</a>
+                            <a href="{{ route('about') }}">About us</a>
                         </li>
                         <li>
                             <a href="">Rental</a>
