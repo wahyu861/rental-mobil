@@ -20,7 +20,7 @@
                             <a href="{{ route('blog') }}">Blog</a>
                         </li>
                         <li>
-                            <a href="">Contact us</a>
+                            <a href="{{ route('contact') }}">Contact us</a>
                         </li>
                     </ul>
                 </div>
