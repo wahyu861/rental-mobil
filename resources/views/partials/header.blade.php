@@ -17,7 +17,7 @@
                             <a href="{{ route('rental') }}">Rental</a>
                         </li>
                         <li>
-                            <a href="">Blog</a>
+                            <a href="{{ route('blog') }}">Blog</a>
                         </li>
                         <li>
                             <a href="">Contact us</a>
