@@ -20,8 +20,12 @@ Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail'
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('back.dashboard.index');
+});
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
