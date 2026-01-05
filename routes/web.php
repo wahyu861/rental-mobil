@@ -35,6 +35,23 @@ Route::get('/dashboard/users/updateuser', function () {
     return view('back.users.edit-user');
 });
 
+Route::get('/dashboard/cars', function () {
+    return view('back.car.index');
+});
+
+Route::get('/dashboard/cars/create', function () {
+    return view('back.car.create');
+});
+
+Route::get('/dashboard/cars/edit', function () {
+    return view('back.car.edit');
+});
+
+Route::get('/dashboard/cars/images', function () {
+    return view('back.car.addimages');
+});
+
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
