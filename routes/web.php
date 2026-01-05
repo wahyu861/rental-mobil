@@ -23,6 +23,18 @@ Route::get('/dashboard', function () {
     return view('back.dashboard.index');
 });
 
+Route::get('/dashboard/booking', function () {
+    return view('back.booking.index');
+});
+
+Route::get('/dashboard/booking/detail', function () {
+    return view('back.booking.detail');
+});
+
+Route::get('/dashboard/users/updateuser', function () {
+    return view('back.users.edit-user');
+});
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
