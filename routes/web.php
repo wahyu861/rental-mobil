@@ -51,6 +51,19 @@ Route::get('/dashboard/cars/images', function () {
     return view('back.car.addimages');
 });
 
+Route::get('/dashboard/categories', function () {
+    return view('back.category.index');
+});
+
+Route::get('/dashboard/categories/create', function () {
+    return view('back.category.create');
+});
+
+Route::get('/dashboard/categories/edit', function () {
+    return view('back.category.edit');
+});
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
