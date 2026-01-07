@@ -87,6 +87,18 @@ Route::get('/dashboard/blogs/edit', function () {
     return view('back.blog.edit');
 });
 
+Route::get('/dashboard/hero', function () {
+    return view('back.hero.index');
+});
+
+Route::get('/dashboard/hero/create', function () {
+    return view('back.hero.create');
+});
+
+Route::get('/dashboard/hero/edit', function () {
+    return view('back.hero.edit');
+});
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
