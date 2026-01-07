@@ -75,6 +75,19 @@ Route::get('/dashboard/about_us/edit', function () {
     return view('back.about_us.edit');
 });
 
+Route::get('/dashboard/blogs', function () {
+    return view('back.blog.index');
+});
+
+Route::get('/dashboard/blogs/create', function () {
+    return view('back.blog.create');
+});
+
+Route::get('/dashboard/blogs/edit', function () {
+    return view('back.blog.edit');
+});
+
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
