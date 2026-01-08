@@ -111,6 +111,19 @@ Route::get('/dashboard/about_section/edit', function () {
     return view('back.aboutsection.edit');
 });
 
+Route::get('/dashboard/faqs', function () {
+    return view('back.faqs.index');
+});
+
+Route::get('/dashboard/faqs/create', function () {
+    return view('back.faqs.create');
+});
+
+Route::get('/dashboard/faqs/edit', function () {
+    return view('back.faqs.edit');
+});
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
