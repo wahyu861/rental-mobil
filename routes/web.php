@@ -31,6 +31,18 @@ Route::get('/dashboard/booking/detail', function () {
     return view('back.booking.detail');
 });
 
+Route::get('/dashboard/users', function () {
+    return view('back.users.index');
+});
+
+Route::get('/dashboard/users/create', function () {
+    return view('back.users.create');
+});
+
+Route::get('/dashboard/users/edit', function () {
+    return view('back.users.edit');
+});
+
 Route::get('/dashboard/users/updateuser', function () {
     return view('back.users.edit-user');
 });
@@ -121,6 +133,18 @@ Route::get('/dashboard/faqs/create', function () {
 
 Route::get('/dashboard/faqs/edit', function () {
     return view('back.faqs.edit');
+});
+
+Route::get('/dashboard/feature', function () {
+    return view('back.feature.index');
+});
+
+Route::get('/dashboard/feature/create', function () {
+    return view('back.feature.create');
+});
+
+Route::get('/dashboard/feature/edit', function () {
+    return view('back.feature.edit');
 });
 
 
