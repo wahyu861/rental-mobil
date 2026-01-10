@@ -8,19 +8,22 @@
                     <span class="login-status online"></span>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                    <span class="font-weight-bold mb-2">User Name</span>
+                    <span class="font-weight-bold mb-2">{{ Auth::user()->name }}</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
         </li>
 
         <!-- Menu Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span class="menu-title">Dashboard</span>
-                <i class="mdi mdi-home menu-icon"></i>
-            </a>
-        </li>
+        @if (auth()->user()->can('view dashboard'))
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+                    href="{{ route('dashboard.index') }}">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                </a>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <span class="menu-title">My Booking</span>

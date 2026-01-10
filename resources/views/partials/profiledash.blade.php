@@ -5,7 +5,7 @@
             <span class="availability-status online"></span>
         </div>
         <div class="nav-profile-text">
-            <p class="mb-1 text-black">Nama User</p>
+            <p class="mb-1 text-black">{{ Auth::User()->name }}</p>
         </div>
     </a>
     <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">

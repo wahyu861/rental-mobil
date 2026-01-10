@@ -20,10 +20,6 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::get('/dashboard', function () {
-    return view('back.dashboard.index');
-});
-
 Route::get('/dashboard/booking', function () {
     return view('back.booking.index');
 });
