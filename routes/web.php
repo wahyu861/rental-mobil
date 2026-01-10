@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Front\RentalController;
 use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Back\DashboardController;
 
 Route::get('/', function () {
     return view('front.home.index');
@@ -147,11 +148,22 @@ Route::get('/dashboard/feature/edit', function () {
     return view('back.feature.edit');
 });
 
+Route::get('/dashboard/reviews', function () {
+    return view('back.reviews.index');
+});
+
+Route::get('/dashboard/contacts', function () {
+    return view('back.contacts.index');
+});
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])
+    ->prefix('dashboard')
+    ->name('dashboard.')
+    ->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
