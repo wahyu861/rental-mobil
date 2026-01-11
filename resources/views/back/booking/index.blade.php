@@ -7,7 +7,7 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Bookings</li>
             </ol>
         </nav>
@@ -29,35 +29,53 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Contoh data statis -->
-                            <tr>
-                                <td>Car 1</td>
-                                <td>District A</td>
-                                <td>John Doe</td>
-                                <td>123 Main St</td>
-                                <td>123-456-7890</td>
-                                <td>01-01-2024</td>
-                                <td>
-                                    <button class="btn btn-info btn-sm" title="View Booking Details">
-                                        <i class="mdi mdi-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Car 2</td>
-                                <td>District B</td>
-                                <td>Jane Smith</td>
-                                <td>456 Elm St</td>
-                                <td>987-654-3210</td>
-                                <td>02-02-2024</td>
-                                <td>
-                                    <button class="btn btn-info btn-sm" title="View Booking Details">
-                                        <i class="mdi mdi-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- Tambahkan lebih banyak data di sini jika diperlukan -->
+                            @isset($bookings)
+                                @forelse($bookings as $booking)
+                                    <tr>
+                                        <td>{{ $booking->car_name }}</td>
+                                        <td>{{ $booking->district_name }}</td>
+                                        <td>{{ $booking->name }}</td>
+                                        <td>{{ $booking->address }}</td>
+                                        <td>{{ $booking->phone }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($booking->usage_date)->format('d-m-Y') }}</td>
+                                        <td>
+                                            <a href="{{ route('bookings.detail', $booking->id) }}"
+                                                class="btn btn-info btn-sm" title="View Booking Details">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" class="text-center">No bookings found.</td>
+                                    </tr>
+                                @endforelse
+                            @endisset
+
+                            @isset($allbookings)
+                                @forelse($allbookings as $booking)
+                                    <tr>
+                                        <td>{{ $booking->car_name }}</td>
+                                        <td>{{ $booking->district_name }}</td>
+                                        <td>{{ $booking->name }}</td>
+                                        <td>{{ $booking->address }}</td>
+                                        <td>{{ $booking->phone }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($booking->usage_date)->format('d-m-Y') }}</td>
+                                        <td>
+                                            <a href="{{ route('bookings.detail', $booking->id) }}"
+                                                class="btn btn-info btn-sm" title="View Booking Details">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" class="text-center">No bookings found.</td>
+                                    </tr>
+                                @endforelse
+                            @endisset
                         </tbody>
+
                     </table>
                 </div>
             </div>

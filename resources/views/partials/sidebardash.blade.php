@@ -15,27 +15,48 @@
         </li>
 
         <!-- Menu Dashboard -->
-        @if (auth()->user()->can('view dashboard'))
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
-                    href="{{ route('dashboard.index') }}">
-                    <span class="menu-title">Dashboard</span>
-                    <i class="mdi mdi-home menu-icon"></i>
-                </a>
-            </li>
-        @endif
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span class="menu-title">My Booking</span>
-                <i class="mdi mdi-car menu-icon"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span class="menu-title">Update Profile</span>
-                <i class="mdi mdi-account-edit menu-icon"></i>
-            </a>
-        </li>
+        @auth
+            {{-- Dashboard --}}
+            @can('view dashboard')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+                        href="{{ route('dashboard.index') }}">
+                        <span class="menu-title">Dashboard</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
+            @endcan
+
+            {{-- USER --}}
+            @role('user')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('bookings') ? 'active' : '' }}" href="{{ route('bookings') }}">
+                        <span class="menu-title">My Booking</span>
+                        <i class="mdi mdi-car menu-icon"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span class="menu-title">Update Profile</span>
+                        <i class="mdi mdi-account-edit menu-icon"></i>
+                    </a>
+                </li>
+            @endrole
+
+            {{-- ADMIN --}}
+            @role('admin')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard.bookings*') ? 'active' : '' }}"
+                        href="{{ route('dashboard.bookings') }}">
+                        <span class="menu-title">All Booking</span>
+                        <i class="mdi mdi-car menu-icon"></i>
+                    </a>
+                </li>
+            @endrole
+        @endauth
+
+
 
         <!-- Menu Lainnya -->
         <li class="nav-item">

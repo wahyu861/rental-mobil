@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
+use App\Http\Controllers\Back\BookingController;
 use App\Http\Controllers\Front\RentalController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
@@ -19,14 +20,6 @@ Route::get('/booking', [RentalController::class, 'booking'])->name('booking');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-
-Route::get('/dashboard/booking', function () {
-    return view('back.booking.index');
-});
-
-Route::get('/dashboard/booking/detail', function () {
-    return view('back.booking.detail');
-});
 
 Route::get('/dashboard/users', function () {
     return view('back.users.index');
@@ -154,11 +147,12 @@ Route::get('/dashboard/contacts', function () {
 
 
 
-Route::middleware(['auth', 'verified'])
+Route::middleware(['auth', 'verified', 'role:user|admin'])
     ->prefix('dashboard')
-    ->name('dashboard.')
     ->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+        Route::get('/bookings/{id}', [BookingController::class, 'detail'])->name('bookings.detail');
     });
 
 Route::middleware('auth')->group(function () {

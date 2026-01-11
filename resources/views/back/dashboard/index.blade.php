@@ -189,7 +189,7 @@
                                                 <a data-bs-toggle="collapse"
                                                     data-bs-target="#collapse{{ $loop->iteration }}"
                                                     aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-c>
-                                                    {{ $faq->question }}
+                                                    {{ $faq['question'] }}
                                                 </a>
                                             </h5>
                                         </div>
@@ -198,7 +198,7 @@
                                             aria-labelledby="heading{{ $loop->iteration }}"
                                             data-bs-parent="#accordion-1">
                                             <div class="card-body">
-                                                {!! nl2br(e($faq->answer)) !!}
+                                                {!! nl2br(e($faq['answer'])) !!}
                                             </div>
                                         </div>
                                     </div>
