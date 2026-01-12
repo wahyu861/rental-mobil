@@ -7,7 +7,7 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Update Profile</li>
             </ol>
         </nav>
@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Update Profile Details</h4>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{ route('update.profile', $user->id) }}">
                         <!-- CSRF Token -->
                         <input type="hidden" name="_token" value="<!-- Add CSRF token here -->">
                         <input type="hidden" name="_method" value="PUT">
@@ -51,7 +51,7 @@
                             <span class="text-danger"><!-- Error message here --></span>
                         </div>
                         <button type="submit" class="btn btn-gradient-primary">Update User</button>
-                        <a href="#" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('users.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

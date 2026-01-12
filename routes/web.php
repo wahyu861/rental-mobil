@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Back\BookingController;
@@ -21,9 +23,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::get('/dashboard/users', function () {
-    return view('back.users.index');
-});
+Route::get('/dashboard/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/dashboard/users/create', function () {
     return view('back.users.create');
@@ -153,6 +153,10 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
         Route::get('/bookings/{id}', [BookingController::class, 'detail'])->name('bookings.detail');
+        Route::get('/requests', [BookingController::class, 'CarRequest'])->name('requests');
+        Route::get('/requests/{id}', [BookingController::class, 'show'])->name('requests.show');
+        Route::get('/edit_profile', [UserController::class, 'editUser'])->name('edit.profile');
+        Route::put('/update_profile/{user}', [UserController::class, 'updateUser'])->name('update.profile');
     });
 
 Route::middleware('auth')->group(function () {

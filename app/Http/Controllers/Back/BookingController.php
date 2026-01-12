@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CarRequest;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
@@ -24,5 +25,17 @@ class BookingController extends Controller
     {
         $booking = Booking::with('payment')->findOrFail($id);
         return view('back.booking.detail', compact('booking'));
+    }
+
+    public function CarRequest()
+    {
+        $carRequests = CarRequest::all();
+        return view('back.booking.request', compact('carRequests'));
+    }
+
+    public function show($id)
+    {
+        $carRequest = CarRequest::with('car')->findOrFail($id);
+        return view('back.booking.show', compact('carRequest'));
     }
 }

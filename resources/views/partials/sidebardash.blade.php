@@ -48,15 +48,26 @@
             @role('admin')
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard.bookings*') ? 'active' : '' }}"
-                        href="{{ route('dashboard.bookings') }}">
-                        <span class="menu-title">All Booking</span>
-                        <i class="mdi mdi-car menu-icon"></i>
+                        data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-c">
+                        <span class="menu-title">Reservasi</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-television-guide menu-icon"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.bookings') ? 'active' : '' }}"
+                                    href="{{ route('bookings') }}">All Booking</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->is('dashboard/requests*') ? 'active' : '' }}"
+                                    href="{{ route('requests') }}">All Request</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             @endrole
         @endauth
-
-
 
         <!-- Menu Lainnya -->
         <li class="nav-item">
@@ -105,8 +116,13 @@
                         <a class="nav-link" href="#">Feature</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Users</a>
+                        <a class="nav-link {{ request()->routeIs('edit.profile') ? 'active' : '' }}"
+                            href="{{ route('edit.profile') }}">
+                            <span class="menu-title">Update Profile</span>
+                            <i class="mdi mdi-account-edit menu-icon"></i>
+                        </a>
                     </li>
+
                 </ul>
             </div>
         </li>
