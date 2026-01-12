@@ -7,7 +7,7 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Categories</li>
             </ol>
         </nav>
@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-description">
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ route('category.create') }}" class="btn btn-success btn-sm">
                             <i class="mdi mdi-plus-circle-multiple-outline"></i> Add Category
                         </a>
                     </p>
@@ -32,26 +32,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Contoh data statis -->
-                            <tr>
-                                <td class="py-1">
-                                    <img src="path/to/logo-image.jpg" alt="logo" width="50" height="50" />
-                                </td>
-                                <td class="py-1">
-                                    <img src="path/to/cover-image.jpg" alt="cover" width="50" height="50" />
-                                </td>
-                                <td>Category Name</td>
-                                <td>category-slug</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="mdi mdi-table-edit"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm">
-                                        <i class="mdi mdi-delete-variant"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- Akhir contoh data statis -->
+                            @foreach ($categories as $category)
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="{{ asset('storage/' . $category->image_logo) }}" alt="logo"
+                                            width="50" height="50" />
+                                    </td>
+                                    <td class="py-1">
+                                        <img src="{{ asset('storage/' . $category->image_cover) }}" alt="cover"
+                                            width="50" height="50" />
+                                    </td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->slug }}</td>
+                                    <td>
+                                        <a href="{{ route('category.edit', $category->id) }}"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="mdi mdi-table-edit"></i>
+                                        </a>
+                                        <form action="{{ route('category.destroy', $category->id) }}" method="POST"
+                                            style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="mdi mdi-delete-variant"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

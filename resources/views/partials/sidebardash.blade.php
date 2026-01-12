@@ -78,7 +78,8 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ request()->routeIs('category.index') ? 'active' : '' }}"
+                href="{{ route('category.index') }}">
                 <span class="menu-title">Category Managements</span>
                 <i class="mdi mdi-car-connected menu-icon"></i>
             </a>

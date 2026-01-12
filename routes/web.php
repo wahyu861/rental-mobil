@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Back\BookingController;
+use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\RentalController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
@@ -51,18 +52,6 @@ Route::get('/dashboard/cars/edit', function () {
 
 Route::get('/dashboard/cars/images', function () {
     return view('back.car.addimages');
-});
-
-Route::get('/dashboard/categories', function () {
-    return view('back.category.index');
-});
-
-Route::get('/dashboard/categories/create', function () {
-    return view('back.category.create');
-});
-
-Route::get('/dashboard/categories/edit', function () {
-    return view('back.category.edit');
 });
 
 Route::get('/dashboard/about_us', function () {
@@ -157,6 +146,7 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::get('/requests/{id}', [BookingController::class, 'show'])->name('requests.show');
         Route::get('/edit_profile', [UserController::class, 'editUser'])->name('edit.profile');
         Route::put('/update_profile/{user}', [UserController::class, 'updateUser'])->name('update.profile');
+        Route::resource('/category', CategoryController::class);
     });
 
 Route::middleware('auth')->group(function () {
