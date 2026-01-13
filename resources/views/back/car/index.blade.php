@@ -7,7 +7,7 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Car Management</li>
             </ol>
         </nav>
@@ -17,42 +17,69 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-description">
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ route('cars.create') }}" class="btn btn-success btn-sm">
                             <i class="mdi mdi-plus-circle-multiple-outline"></i> Add Car
                         </a>
                     </p>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th> Name </th>
-                                <th> Services </th>
-                                <th> Price </th>
-                                <th> Location </th>
-                                <th> Action </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Example Car</td>
-                                <td>Air Conditioning, GPS</td>
-                                <td>Rp. 100,000.00</td>
-                                <td>Jakarta</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="mdi mdi-table-edit"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-success btn-sm">
-                                        <i class="mdi mdi-image-plus"></i>
-                                    </a>
-                                    <form action="#" method="POST" style="display:inline-block;">
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="mdi mdi-delete-variant"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @if ($cars->isEmpty())
+                        <div class="alert alert-warning" role="alert">
+                            Maaf, belum ada data mobil.
+                        </div>
+                    @else
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th> Name </th>
+                                    <th> Services </th>
+                                    <th> Price </th>
+                                    <th> Location </th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cars as $car)
+                                    <tr>
+                                        <td>{{ $car->name }}</td>
+                                        <td>
+                                            @php
+                                                $carFeatures = json_decode($car->car_features, true);
+                                            @endphp
+
+                                            @if (is_array($carFeatures) && !empty($carFeatures))
+                                                @foreach ($carFeatures as $feature)
+                                                    {{ $feature }}@if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                No features available
+                                            @endif
+                                        </td>
+                                        <td>Rp. {{ number_format($car->price, 2) }}</td>
+                                        <td>{{ $car->location }}</td>
+                                        <td>
+                                            <a href="{{ route('cars.edit', $car) }}" class="btn btn-primary btn-sm">
+                                                <i class="mdi mdi-table-edit"></i>
+                                            </a>
+                                            <a href="{{ route('cars.addImages', $car) }}"
+                                                class="btn btn-success btn-sm">
+                                                <i class="mdi mdi-image-plus"></i>
+                                            </a>
+                                            <form action="{{ url('dashboard/cars/' . $car->id) }}" method="POST"
+                                                style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="mdi mdi-delete-variant"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>

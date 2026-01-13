@@ -7,8 +7,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Car Management</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('cars.index') }}">Car Managements</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Car</li>
             </ol>
         </nav>
@@ -18,32 +18,35 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="name">Car Name</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" name="name" class="form-control" id="name" required>
                         </div>
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select class="form-control" id="category" required>
+                            <select name="category_id" class="form-control" id="category" required>
                                 <option value="">Select Category</option>
-                                <!-- Categories Placeholder -->
-                                <option value="1">SUV</option>
-                                <option value="2">Sedan</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" id="price" step="0.01" required>
+                            <input type="number" name="price" class="form-control" id="price" step="0.01"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" id="location" required>
+                            <input type="text" name="location" class="form-control" id="location" required>
                         </div>
                         <h5>Car Features</h5>
                         <div id="features-container">
                             <div class="form-group">
-                                <input type="text" class="form-control mb-1" placeholder="Enter car feature">
+                                <input type="text" name="car_features[]" class="form-control mb-1"
+                                    placeholder="Enter car feature">
                             </div>
                         </div>
                         <button type="button" id="add-feature" class="btn btn-secondary mb-5">Add Feature</button>
@@ -51,37 +54,66 @@
                         <h5>Extra Services</h5>
                         <div id="extra-services-container">
                             <div class="form-group">
-                                <input type="text" class="form-control mb-1" placeholder="Enter extra service">
+                                <input type="text" name="extra_services[]" class="form-control mb-1"
+                                    placeholder="Enter extra service">
                             </div>
                         </div>
                         <button type="button" id="add-extra-service" class="btn btn-secondary mb-5">Add Extra
                             Service</button>
-
                         <h5>Specifications</h5>
                         <div class="row">
                             <div class="col-md-6">
-                                <!-- Specification inputs -->
                                 <div class="form-group">
                                     <label for="body">Body</label>
-                                    <input type="text" class="form-control" id="body" required>
+                                    <input type="text" name="specifications[body]" class="form-control"
+                                        id="body" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="engine_capacity">Engine Capacity</label>
-                                    <input type="text" class="form-control" id="engine_capacity" required>
+                                    <input type="text" name="specifications[engine_capacity]" class="form-control"
+                                        id="engine_capacity" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="seats">Seats</label>
-                                    <input type="text" class="form-control" id="seats" required>
+                                    <input type="text" name="specifications[seats]" class="form-control"
+                                        id="seats" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tyre">Tyre</label>
+                                    <input type="text" name="specifications[tyre]" class="form-control"
+                                        id="tyre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="engine_type">Engine Type</label>
+                                    <input type="text" name="specifications[engine_type]" class="form-control"
+                                        id="engine_type" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="tank_capacity">Tank Capacity</label>
+                                    <input type="text" name="specifications[tank_capacity]" class="form-control"
+                                        id="tank_capacity" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="transmission">Transmission</label>
-                                    <input type="text" class="form-control" id="transmission" required>
+                                    <input type="text" name="specifications[transmission]" class="form-control"
+                                        id="transmission" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="brakes">Brakes</label>
+                                    <input type="text" name="specifications[brakes]" class="form-control"
+                                        id="brakes" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="mileage">Mileage</label>
-                                    <input type="text" class="form-control" id="mileage" required>
+                                    <input type="text" name="specifications[mileage]" class="form-control"
+                                        id="mileage" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="drive_train">Drive Train</label>
+                                    <input type="text" name="specifications[drive_train]" class="form-control"
+                                        id="drive_train" required>
                                 </div>
                             </div>
                         </div>
@@ -100,6 +132,7 @@
 
             const newFeatureInput = document.createElement('input');
             newFeatureInput.type = 'text';
+            newFeatureInput.name = 'car_features[]';
             newFeatureInput.classList.add('form-control', 'mb-2');
             newFeatureInput.placeholder = 'Enter car feature';
 
@@ -115,6 +148,7 @@
 
             const newServiceInput = document.createElement('input');
             newServiceInput.type = 'text';
+            newServiceInput.name = 'extra_services[]';
             newServiceInput.classList.add('form-control', 'mb-2');
             newServiceInput.placeholder = 'Enter extra service';
 
