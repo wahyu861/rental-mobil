@@ -3,12 +3,13 @@
 use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Back\CarController;
 use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Back\BookingController;
-use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\RentalController;
+use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
 
@@ -147,6 +148,10 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::get('/edit_profile', [UserController::class, 'editUser'])->name('edit.profile');
         Route::put('/update_profile/{user}', [UserController::class, 'updateUser'])->name('update.profile');
         Route::resource('/category', CategoryController::class);
+        Route::resource('cars', CarController::class);
+        Route::post('/cars/upload-images', [CarController::class, 'uploadImages'])->name('cars.uploadImages');
+        Route::post('/cars/remove-image', [CarController::class, 'removeImage'])->name('cars.removeImage');
+        Route::get('/cars/add-images/{car}', [CarController::class, 'addImages'])->name('cars.addImages');
     });
 
 Route::middleware('auth')->group(function () {

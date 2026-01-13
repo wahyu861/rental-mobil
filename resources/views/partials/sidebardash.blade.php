@@ -71,7 +71,7 @@
 
         <!-- Menu Lainnya -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ request()->is('cars.index') ? 'active' : '' }}" href="{{ route('cars.index') }}">
                 <span class="menu-title">Cars Managements</span>
                 <i class="mdi mdi-car-connected menu-icon"></i>
             </a>
