@@ -7,7 +7,7 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Blog Management</li>
             </ol>
         </nav>
@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-description">
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ url('dashboard/blogs/create') }}" class="btn btn-success btn-sm">
                             <i class="mdi mdi-plus-circle-multiple-outline"></i> Add Blog
                         </a>
                     </p>
@@ -32,29 +32,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Sample Blog Title</td>
-                                <td>
-                                    <img src="path/to/sample-image.jpg" alt="Sample Blog Title"
-                                        style="width: 100px; height: auto;">
-                                </td>
-                                <td>John Doe</td>
-                                <td>Sample Category</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="mdi mdi-table-edit"></i>
-                                    </a>
-                                    <form action="#" method="POST" style="display:inline-block;">
-                                        <button type="button" class="btn btn-danger btn-sm">
-                                            <i class="mdi mdi-delete-variant"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <!-- Add more static rows as needed -->
-                            <tr>
-                                <td colspan="5" class="text-center">No blogs available.</td>
-                            </tr>
+                            @if ($blogs->isEmpty())
+                                <tr>
+                                    <td colspan="5" class="text-center">No blogs available.</td>
+                                </tr>
+                            @else
+                                @foreach ($blogs as $blog)
+                                    <tr>
+                                        <td>{{ $blog->title }}</td>
+                                        <td>
+                                            <img src="{{ asset('storage/' . $blog->image_cover) }}"
+                                                alt="{{ $blog->title }}" style="width: 100px; height: auto;">
+                                        </td>
+                                        <td>{{ $blog->author }}</td>
+                                        <td>{{ $blog->category ? $blog->category->name : 'Uncategorized' }}</td>
+                                        <td>
+                                            <a href="{{ url('dashboard/blogs/' . $blog->id . '/edit') }}"
+                                                class="btn btn-primary btn-sm">
+                                                <i class="mdi mdi-table-edit"></i>
+                                            </a>
+                                            <form action="{{ url('dashboard/blogs/' . $blog->id) }}" method="POST"
+                                                style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="mdi mdi-delete-variant"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

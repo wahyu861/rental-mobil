@@ -92,7 +92,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ request()->is('dashboard/blogs*') ? 'active' : '' }}"
+                href="{{ url('dashboard/blogs') }}">
                 <span class="menu-title">Blogs</span>
                 <i class="mdi mdi-book-multiple menu-icon"></i>
             </a>

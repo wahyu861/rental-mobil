@@ -7,8 +7,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Blog Management</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('dashboard/blogs') }}">Blog Management</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Blog</li>
             </ol>
         </nav>
@@ -18,37 +18,42 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('blogs.update', $blog) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT') <!-- Method for update -->
+                        @method('PUT') <!-- Menambahkan method PUT untuk update -->
 
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" name="title" id="title" class="form-control"
-                                placeholder="Enter blog title" required>
+                                value="{{ $blog->title }}" placeholder="Enter blog title" required>
                         </div>
 
                         <div class="form-group">
                             <label for="image_cover">Image Cover</label>
                             <input type="file" name="image_cover" id="image_cover" class="form-control">
-                            <small class="form-text text-muted">Current cover: <img src="#" alt="Current Cover"
+                            <small class="form-text text-muted">Current cover: <img
+                                    src="{{ asset('storage/' . $blog->image_cover) }}" alt="Current Cover"
                                     style="max-width: 200px;"></small>
                         </div>
 
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea name="myTextarea" id="myTextarea"></textarea>
+                            <textarea name="myTextarea" id="myTextarea">{{ $blog->content }}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="category_id">Category</label>
                             <select name="category_id" id="category_id" class="form-control" required>
                                 <option value="">Select Category</option>
-                                <!-- Categories will go here as options -->
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ $blog->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Blog</button>
-                        <a href="#" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ url('dashboard/blogs') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>
@@ -61,7 +66,7 @@
         const image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = false;
-            xhr.open('POST', '/dashboard/image_upload'); // Change as needed
+            xhr.open('POST', '/dashboard/image_upload');
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
@@ -97,7 +102,7 @@
             automatic_uploads: true,
             file_picker_types: 'image',
             images_upload_handler: image_upload_handler,
-            images_upload_url: '/dashboard/image_upload', // Change as needed
+            images_upload_url: '/dashboard/image_upload',
             setup(editor) {
                 editor.on("keydown", function(e) {
                     if ((e.keyCode == 8 || e.keyCode == 46) && tinymce.activeEditor.selection) {

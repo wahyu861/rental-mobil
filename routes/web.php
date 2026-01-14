@@ -13,6 +13,7 @@ use App\Http\Controllers\Front\RentalController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
+use App\Http\Controllers\Back\BackBlogController;
 
 Route::get('/', function () {
     return view('front.home.index');
@@ -68,9 +69,9 @@ Route::get('/dashboard/about_us/edit', function () {
     return view('back.about_us.edit');
 });
 
-Route::get('/dashboard/blogs', function () {
-    return view('back.blog.index');
-});
+// Route::get('/blogs', function () {
+//     return view('back.blog.index');
+// });
 
 Route::get('/dashboard/blogs/create', function () {
     return view('back.blog.create');
@@ -154,6 +155,9 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::post('/cars/remove-image', [CarController::class, 'removeImage'])->name('cars.removeImage');
         Route::get('/cars/add-images/{car}', [CarController::class, 'addImages'])->name('cars.addImages');
         Route::resource('about_us', AboutUsController::class);
+        Route::resource('blogs', BackBlogController::class);
+        Route::post('image_upload', [BackBlogController::class, 'image_upload'])->name('image.upload');
+        Route::post('image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
     });
 
 Route::middleware('auth')->group(function () {
