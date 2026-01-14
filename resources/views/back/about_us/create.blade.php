@@ -7,8 +7,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">About</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('about_us.index') }}">About</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Create</li>
             </ol>
         </nav>
@@ -17,7 +17,8 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('about_us.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" name="title" class="form-control" id="title"
@@ -33,8 +34,8 @@
                             <input type="file" name="image" class="form-control-file" id="image"
                                 accept="image/*">
                         </div>
-                        <button type="button" class="btn btn-gradient-primary mt-3">Save</button>
-                        <a href="#" class="btn btn-light mt-3">Cancel</a>
+                        <button type="submit" class="btn btn-gradient-primary mt-3">Save</button>
+                        <a href="{{ route('about_us.index') }}" class="btn btn-light mt-3">Cancel</a>
                     </form>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Back\AboutUsController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -152,6 +153,7 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::post('/cars/upload-images', [CarController::class, 'uploadImages'])->name('cars.uploadImages');
         Route::post('/cars/remove-image', [CarController::class, 'removeImage'])->name('cars.removeImage');
         Route::get('/cars/add-images/{car}', [CarController::class, 'addImages'])->name('cars.addImages');
+        Route::resource('about_us', AboutUsController::class);
     });
 
 Route::middleware('auth')->group(function () {

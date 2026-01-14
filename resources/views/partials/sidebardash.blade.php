@@ -85,7 +85,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ request()->routeIs('about_us.index') ? 'active' : '' }}"
+                href="{{ route('about_us.index') }}">
                 <span class="menu-title">About Us</span>
                 <i class="mdi mdi-car-connected menu-icon"></i>
             </a>
