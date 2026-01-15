@@ -99,7 +99,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-c>
+            <a class="nav-link {{ request()->is('dashboard/settings*') ? 'active' : '' }}" data-bs-toggle="collapse"
+                href="#ui-basic" aria-expanded="false" aria-c>
                 <span class="menu-title">Settings</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-television-guide menu-icon"></i>
@@ -107,7 +108,8 @@
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Hero Section</a>
+                        <a class="nav-link {{ request()->routeIs('hero.index') ? 'active' : '' }}"
+                            href="{{ route('hero.index') }}">Hero Section</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About Section</a>

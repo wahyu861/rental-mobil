@@ -7,8 +7,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Hero Sections</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hero.index') }}">Hero Sections</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Hero</li>
             </ol>
         </nav>
@@ -17,31 +17,42 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('hero.update', $hero->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" name="title" class="form-control" value="Sample Title" required>
+                            <input type="text" name="title" class="form-control"
+                                value="{{ old('title', $hero->title) }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="subtitle">Subtitle</label>
-                            <input type="text" name="subtitle" class="form-control" value="Sample Subtitle" required>
+                            <input type="text" name="subtitle" class="form-control"
+                                value="{{ old('subtitle', $hero->subtitle) }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="image">Image</label>
                             <input type="file" name="image" class="form-control">
-                            <img src="#" alt="hero image" width="100" class="mt-2">
+                            @if ($hero->image)
+                                <img src="{{ asset('storage/' . $hero->image) }}" alt="hero image" width="100"
+                                    class="mt-2">
+                            @endif
                         </div>
 
                         <div class="form-group">
                             <label for="background_image">Background Image</label>
                             <input type="file" name="background_image" class="form-control">
-                            <img src="#" alt="hero background image" width="100" class="mt-2">
+                            @if ($hero->background_image)
+                                <img src="{{ asset('storage/' . $hero->background_image) }}" alt="hero background image"
+                                    width="100" class="mt-2">
+                            @endif
                         </div>
 
                         <button type="submit" class="btn btn-primary">Update Hero</button>
-                        <a href="#" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('hero.index') }}" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

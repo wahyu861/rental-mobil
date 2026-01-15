@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\Back\AboutUsController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Back\CarController;
+use App\Http\Controllers\Back\HeroController;
 use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
+use App\Http\Controllers\Back\AboutUsController;
 use App\Http\Controllers\Back\BookingController;
 use App\Http\Controllers\Front\RentalController;
+use App\Http\Controllers\Back\BackBlogController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
-use App\Http\Controllers\Back\BackBlogController;
 
 Route::get('/', function () {
     return view('front.home.index');
@@ -55,42 +56,6 @@ Route::get('/dashboard/cars/edit', function () {
 
 Route::get('/dashboard/cars/images', function () {
     return view('back.car.addimages');
-});
-
-Route::get('/dashboard/about_us', function () {
-    return view('back.about_us.index');
-});
-
-Route::get('/dashboard/about_us/create', function () {
-    return view('back.about_us.create');
-});
-
-Route::get('/dashboard/about_us/edit', function () {
-    return view('back.about_us.edit');
-});
-
-// Route::get('/blogs', function () {
-//     return view('back.blog.index');
-// });
-
-Route::get('/dashboard/blogs/create', function () {
-    return view('back.blog.create');
-});
-
-Route::get('/dashboard/blogs/edit', function () {
-    return view('back.blog.edit');
-});
-
-Route::get('/dashboard/hero', function () {
-    return view('back.hero.index');
-});
-
-Route::get('/dashboard/hero/create', function () {
-    return view('back.hero.create');
-});
-
-Route::get('/dashboard/hero/edit', function () {
-    return view('back.hero.edit');
 });
 
 Route::get('/dashboard/about_section', function () {
@@ -158,6 +123,7 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::resource('blogs', BackBlogController::class);
         Route::post('image_upload', [BackBlogController::class, 'image_upload'])->name('image.upload');
         Route::post('image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
+        Route::resource('hero', HeroController::class);
     });
 
 Route::middleware('auth')->group(function () {

@@ -7,18 +7,18 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Hero Sections</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hero.index') }}">Hero Sections</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Create Hero</li>
             </ol>
         </nav>
     </div>
-
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('hero.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" id="title" name="title"
@@ -39,7 +39,7 @@
                                 required>
                         </div>
                         <button type="submit" class="btn btn-gradient-primary me-2">Save</button>
-                        <a href="#" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('hero.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

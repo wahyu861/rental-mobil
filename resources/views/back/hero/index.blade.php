@@ -7,18 +7,17 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Hero Sections</li>
             </ol>
         </nav>
     </div>
-
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <p class="card-description">
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ route('hero.create') }}" class="btn btn-success btn-sm">
                             <i class="mdi mdi-plus-circle-multiple-outline"></i> Add Hero
                         </a>
                     </p>
@@ -33,27 +32,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="py-1">
-                                    <img src="path/to/image.jpg" alt="image" width="50" height="50" />
-                                </td>
-                                <td class="py-1">
-                                    <img src="path/to/background-image.jpg" alt="background image" width="50"
-                                        height="50" />
-                                </td>
-                                <td>Hero Title</td>
-                                <td>Hero Subtitle</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="mdi mdi-table-edit"></i>
-                                    </a>
-                                    <form action="#" method="POST" style="display:inline-block;">
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="mdi mdi-delete-variant"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @foreach ($heroes as $hero)
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="{{ asset('storage/' . $hero->image) }}" alt="image" width="50"
+                                            height="50" />
+                                    </td>
+                                    <td class="py-1">
+                                        <img src="{{ asset('storage/' . $hero->background_image) }}"
+                                            alt="background image" width="50" height="50" />
+                                    </td>
+                                    <td>{{ $hero->title }}</td>
+                                    <td>{{ $hero->subtitle }}</td>
+                                    <td>
+                                        <a href="{{ route('hero.edit', $hero->id) }}" class="btn btn-primary btn-sm">
+                                            <i class="mdi mdi-table-edit"></i>
+                                        </a>
+                                        <form action="{{ route('hero.destroy', $hero->id) }}" method="POST"
+                                            style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="mdi mdi-delete-variant"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
