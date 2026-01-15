@@ -112,7 +112,8 @@
                             href="{{ route('hero.index') }}">Hero Section</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Section</a>
+                        <a class="nav-link {{ request()->routeIs('abouts.index') ? 'active' : '' }}"
+                            href="{{ route('abouts.index') }}">About Section</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">FAQS</a>

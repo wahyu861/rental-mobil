@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Back\AboutSectionController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -119,11 +120,12 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::post('/cars/upload-images', [CarController::class, 'uploadImages'])->name('cars.uploadImages');
         Route::post('/cars/remove-image', [CarController::class, 'removeImage'])->name('cars.removeImage');
         Route::get('/cars/add-images/{car}', [CarController::class, 'addImages'])->name('cars.addImages');
-        Route::resource('about_us', AboutUsController::class);
-        Route::resource('blogs', BackBlogController::class);
-        Route::post('image_upload', [BackBlogController::class, 'image_upload'])->name('image.upload');
-        Route::post('image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
-        Route::resource('hero', HeroController::class);
+        Route::resource('/about_us', AboutUsController::class);
+        Route::resource('/blogs', BackBlogController::class);
+        Route::post('/image_upload', [BackBlogController::class, 'image_upload'])->name('image.upload');
+        Route::post('/image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
+        Route::resource('/hero', HeroController::class);
+        Route::resource('/abouts', AboutSectionController::class);
     });
 
 Route::middleware('auth')->group(function () {
