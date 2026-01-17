@@ -7,8 +7,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">User Management</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('users.index') }}">User Management</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add User</li>
             </ol>
         </nav>
@@ -19,35 +19,43 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Create New User</h4>
-                    <form method="POST" action="#">
-                        <input type="hidden" name="_token" value="static-csrf-token">
+                    <form method="POST" action="{{ route('users.store') }}">
+                        @csrf
 
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 placeholder="Enter Name" required>
-                            <span class="text-danger d-none">Error message here</span>
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email"
                                 placeholder="Enter Email" required>
-                            <span class="text-danger d-none">Error message here</span>
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password"
                                 placeholder="Enter Password" required>
-                            <span class="text-danger d-none">Error message here</span>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="password_confirmation">Confirm Password</label>
                             <input type="password" class="form-control" id="password_confirmation"
                                 name="password_confirmation" placeholder="Confirm Password" required>
-                            <span class="text-danger d-none">Error message here</span>
+                            @error('password_confirmation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -56,11 +64,13 @@
                                 <option value="admin">Admin</option>
                                 <option value="user">User</option>
                             </select>
-                            <span class="text-danger d-none">Error message here</span>
+                            @error('roles')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn btn-gradient-primary">Add User</button>
-                        <a href="#" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('users.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

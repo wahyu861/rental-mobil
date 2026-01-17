@@ -124,13 +124,9 @@
                             href="{{ route('features.index') }}">Feature</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('edit.profile') ? 'active' : '' }}"
-                            href="{{ route('edit.profile') }}">
-                            <span class="menu-title">Update Profile</span>
-                            <i class="mdi mdi-account-edit menu-icon"></i>
-                        </a>
+                        <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                            href="{{ route('users.index') }}">Users</a>
                     </li>
-
                 </ul>
             </div>
         </li>

@@ -35,18 +35,6 @@ Route::get('/dashboard/cars/images', function () {
     return view('back.car.addimages');
 });
 
-Route::get('/dashboard/feature', function () {
-    return view('back.feature.index');
-});
-
-Route::get('/dashboard/feature/create', function () {
-    return view('back.feature.create');
-});
-
-Route::get('/dashboard/feature/edit', function () {
-    return view('back.feature.edit');
-});
-
 Route::get('/dashboard/reviews', function () {
     return view('back.reviews.index');
 });
@@ -54,8 +42,6 @@ Route::get('/dashboard/reviews', function () {
 Route::get('/dashboard/contacts', function () {
     return view('back.contacts.index');
 });
-
-
 
 Route::middleware(['auth', 'verified', 'role:user|admin'])
     ->prefix('dashboard')
@@ -80,6 +66,7 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::resource('/abouts', AboutSectionController::class);
         Route::resource('/faqs', FaqController::class);
         Route::resource('features', FeatureController::class);
+        Route::resource('users', UserController::class);
     });
 
 Route::middleware('auth')->group(function () {
