@@ -1,21 +1,23 @@
 <?php
 
-use App\Http\Controllers\Back\AboutSectionController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Back\CarController;
+use App\Http\Controllers\Back\FaqController;
 use App\Http\Controllers\Back\HeroController;
 use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Back\AboutUsController;
 use App\Http\Controllers\Back\BookingController;
+use App\Http\Controllers\Back\FeatureController;
 use App\Http\Controllers\Front\RentalController;
 use App\Http\Controllers\Back\BackBlogController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
+use App\Http\Controllers\Back\AboutSectionController;
 
 Route::get('/', function () {
     return view('front.home.index');
@@ -29,58 +31,8 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::get('/dashboard/users', [UserController::class, 'index'])->name('users.index');
-
-Route::get('/dashboard/users/create', function () {
-    return view('back.users.create');
-});
-
-Route::get('/dashboard/users/edit', function () {
-    return view('back.users.edit');
-});
-
-Route::get('/dashboard/users/updateuser', function () {
-    return view('back.users.edit-user');
-});
-
-Route::get('/dashboard/cars', function () {
-    return view('back.car.index');
-});
-
-Route::get('/dashboard/cars/create', function () {
-    return view('back.car.create');
-});
-
-Route::get('/dashboard/cars/edit', function () {
-    return view('back.car.edit');
-});
-
 Route::get('/dashboard/cars/images', function () {
     return view('back.car.addimages');
-});
-
-Route::get('/dashboard/about_section', function () {
-    return view('back.aboutsection.index');
-});
-
-Route::get('/dashboard/about_section/create', function () {
-    return view('back.aboutsection.create');
-});
-
-Route::get('/dashboard/about_section/edit', function () {
-    return view('back.aboutsection.edit');
-});
-
-Route::get('/dashboard/faqs', function () {
-    return view('back.faqs.index');
-});
-
-Route::get('/dashboard/faqs/create', function () {
-    return view('back.faqs.create');
-});
-
-Route::get('/dashboard/faqs/edit', function () {
-    return view('back.faqs.edit');
 });
 
 Route::get('/dashboard/feature', function () {
@@ -126,6 +78,8 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::post('/image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
         Route::resource('/hero', HeroController::class);
         Route::resource('/abouts', AboutSectionController::class);
+        Route::resource('/faqs', FaqController::class);
+        Route::resource('features', FeatureController::class);
     });
 
 Route::middleware('auth')->group(function () {

@@ -116,10 +116,12 @@
                             href="{{ route('abouts.index') }}">About Section</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">FAQS</a>
+                        <a class="nav-link {{ request()->routeIs('faqs.index') ? 'active' : '' }}"
+                            href="{{ route('faqs.index') }}">FAQS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Feature</a>
+                        <a class="nav-link {{ request()->routeIs('features.index') ? 'active' : '' }}"
+                            href="{{ route('features.index') }}">Feature</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('edit.profile') ? 'active' : '' }}"

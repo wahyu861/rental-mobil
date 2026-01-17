@@ -7,66 +7,59 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Feature Sections</li>
             </ol>
         </nav>
     </div>
-
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <p class="card-description">
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="{{ route('features.create') }}" class="btn btn-success btn-sm">
                             <i class="mdi mdi-plus-circle-multiple-outline"></i> Add Feature
                         </a>
                     </p>
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th> Title </th>
-                                <th> Description </th>
-                                <th> Action </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Static data for templating -->
-                            <tr>
-                                <td>Feature 1</td>
-                                <td>Description of Feature 1</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="mdi mdi-table-edit"></i>
-                                    </a>
-                                    <form action="#" method="POST" style="display:inline-block;">
-                                        <input type="hidden" name="_token" value="static-csrf-token">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="mdi mdi-delete-variant"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Feature 2</td>
-                                <td>Description of Feature 2</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
-                                        <i class="mdi mdi-table-edit"></i>
-                                    </a>
-                                    <form action="#" method="POST" style="display:inline-block;">
-                                        <input type="hidden" name="_token" value="static-csrf-token">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="mdi mdi-delete-variant"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @if ($features->isEmpty())
+                        <div class="text-center">
+                            <h4>No Features Found</h4>
+                            <p>There are no features available. Click "Add Feature" to create a new one.</p>
+                        </div>
+                    @else
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th> Title </th>
+                                    <th> Description </th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($features as $feature)
+                                    <tr>
+                                        <td>{{ $feature->title }}</td>
+                                        <td>{{ $feature->description }}</td>
+                                        <td>
+                                            <a href="{{ route('features.edit', $feature) }}"
+                                                class="btn btn-primary btn-sm">
+                                                <i class="mdi mdi-table-edit"></i>
+                                            </a>
+                                            <form action="{{ route('features.destroy', $feature) }}" method="POST"
+                                                style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="mdi mdi-delete-variant"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>

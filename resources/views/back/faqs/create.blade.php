@@ -7,8 +7,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">FAQ Sections</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('faqs.index') }}">FAQ Sections</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Create FAQ</li>
             </ol>
         </nav>
@@ -18,23 +18,24 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="#" method="POST">
-                        <!-- Static CSRF token for form -->
-                        <input type="hidden" name="_token" value="static-csrf-token">
-
+                    <form action="{{ route('faqs.store') }}" method="POST">
+                        @csrf
                         <div class="form-group">
                             <label for="question">Question</label>
-                            <input type="text" class="form-control" id="question" name="question" value=""
-                                required>
-                            <!-- Static error message -->
-                            <div class="invalid-feedback">Please enter a question.</div>
+                            <input type="text" class="form-control @error('question') is-invalid @enderror"
+                                id="question" name="question" value="{{ old('question') }}" required>
+                            @error('question')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group mt-3">
                             <label for="answer">Answer</label>
-                            <textarea class="form-control" id="answer" name="answer" rows="5" required></textarea>
-                            <!-- Static error message -->
-                            <div class="invalid-feedback">Please enter an answer.</div>
+                            <textarea class="form-control @error('answer') is-invalid @enderror" id="answer" name="answer" rows="5"
+                                required>{{ old('answer') }}</textarea>
+                            @error('answer')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn btn-success mt-3">Save FAQ</button>
