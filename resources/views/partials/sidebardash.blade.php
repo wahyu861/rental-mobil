@@ -127,6 +127,10 @@
                         <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
                             href="{{ route('users.index') }}">Users</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('settings.index') ? 'active' : '' }}"
+                            href="{{ route('settings.index') }}">Settings</a>
+                    </li>
                 </ul>
             </div>
         </li>

@@ -18,6 +18,7 @@ use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\AboutSectionController;
+use App\Http\Controllers\Back\SettingController;
 
 Route::get('/', function () {
     return view('front.home.index');
@@ -67,6 +68,7 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::resource('/faqs', FaqController::class);
         Route::resource('features', FeatureController::class);
         Route::resource('users', UserController::class);
+        Route::resource('settins', SettingController::class);
     });
 
 Route::middleware('auth')->group(function () {

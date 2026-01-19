@@ -1,8 +1,13 @@
 <!-- partial:partials/navbardash.blade.php -->
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-        <a class="navbar-brand brand-logo" href="{{ url('/') }}"><img src="{{ asset('back/assets/images/logo.svg') }}"
-                alt="logo" /></a>
+        <a class="navbar-brand brand-logo" href="{{ url('/') }}">
+            @if (isset($settings->header_logo) && $settings->header_logo)
+                <img src="{{ asset('storage/' . $settings->header_logo) }}" alt="logo" />
+            @else
+                <img src="{{ asset('back/assets/images/logo.svg') }}" alt="logo" />
+            @endif
+        </a>
         <a class="navbar-brand brand-logo-mini" href="{{ url('dashboard') }}"><img
                 src="{{ asset('back/assets/images/logo-mini.svg') }}" alt="logo" /></a>
     </div>
