@@ -1,8 +1,8 @@
 <section class="hero-banner pt-80 mb-24">
     <div class="container-fluid">
-        <h1>Seamless Travel with Fast <br><span>RapidRide</span> Car Rental</h1>
+        <h1>{{ $hero->title }} <br><span>{{ $hero->subtitle }}</span></h1>
         <div class="map-image">
-            <img src="{{ asset('front/assets/media/hero/World_Map.png') }}" alt="map-image">
+            <img src="{{ Storage::url($hero->background_image) }}" alt="map-image">
         </div>
         <div class="btn-block row-gap-3 mb-24">
             <div class="cus-btn">
@@ -27,7 +27,7 @@
                     </span>
                 </a>
             </div>
-            <a href="contact.html" class="cus-btn-2">
+            <a href="{{ route('contact') }}" class="cus-btn-2">
                 <span class="btn-text">
                     Contact us
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
@@ -48,6 +48,6 @@
                 </span>
             </a>
         </div>
-        <img src="{{ asset('front/assets/media/hero/hero-group.png') }}" alt="header">
+        <img src="{{ Storage::url($hero->image) }}" alt="header">
     </div>
 </section>

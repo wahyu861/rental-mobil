@@ -19,11 +19,9 @@ use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\AboutSectionController;
 use App\Http\Controllers\Back\SettingController;
+use App\Http\Controllers\Front\HomePageController;
 
-Route::get('/', function () {
-    return view('front.home.index');
-});
-
+Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/rental', [RentalController::class, 'index'])->name('rental');
 Route::get('/detail', [RentalController::class, 'detail'])->name('detail');
