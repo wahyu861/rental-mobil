@@ -68,7 +68,7 @@ Route::middleware(['auth', 'verified', 'role:user|admin'])
         Route::resource('/faqs', FaqController::class);
         Route::resource('features', FeatureController::class);
         Route::resource('users', UserController::class);
-        Route::resource('settins', SettingController::class);
+        Route::resource('settings', SettingController::class);
     });
 
 Route::middleware('auth')->group(function () {
