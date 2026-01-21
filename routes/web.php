@@ -29,6 +29,9 @@ Route::get('/booking', [RentalController::class, 'booking'])->name('booking');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('car/{slug}', function ($slug) {
+    return view('cars.detail', ['slug' => $slug]);
+})->name('vehicle.details');
 
 Route::get('/dashboard/cars/images', function () {
     return view('back.car.addimages');
