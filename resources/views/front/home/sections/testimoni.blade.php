@@ -29,110 +29,24 @@
                 </div>
             </div>
             <div class="testimonials-slider">
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-1.png') }}" alt="">
+                @if ($reviews->isEmpty())
+                    <p class="text-center">Belum ada ulasan tersedia.</p>
+                @else
+                    @foreach ($reviews as $review)
+                        <div class="col-12">
+                            <div class="review-card">
+                                <div class="img-block">
+                                    <img src="{{ asset('front/assets/media/teams/team-1.png') }}" alt="">
+                                </div>
+                                <div class="text-block">
+                                    <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
+                                    <h6>{{ $review->username }}</h6>
+                                    <p>{{ $review->review_text }}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Ava-Grace</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-2.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Anna Bella</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-3.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Robert Green</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-4.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Evie Grace</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-1.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Ava-Grace</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-2.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Anna Bella</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-3.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Robert Green</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="review-card">
-                        <div class="img-block">
-                            <img src="{{ asset('front/assets/media/teams/team-4.png') }}" alt="">
-                        </div>
-                        <div class="text-block">
-                            <img src="{{ asset('front/assets/media/icons/quotes.png') }}" alt="">
-                            <h6>Evie Grace</h6>
-                            <p>Lorem ipsum dolor sit amet consectetur. Sagittis quis vitae malesuada orci nulla
-                                mauris tristique venenatis.</p>
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

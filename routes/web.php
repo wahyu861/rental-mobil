@@ -32,17 +32,15 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('car/{slug}', function ($slug) {
     return view('cars.detail', ['slug' => $slug]);
 })->name('vehicle.details');
+Route::get('cars/category/{slug}', function ($slug) {
+    return view('cars.detail', ['slug' => $slug]);
+})->name('cars.byCategory');
+Route::post('/car-request', [RentalController::class, 'store'])->name('car.request.store');
+Route::get('/car-price/{id}', [HomepageController::class, 'getCarPrice']);
 
-Route::get('/dashboard/cars/images', function () {
-    return view('back.car.addimages');
-});
 
 Route::get('/dashboard/reviews', function () {
     return view('back.reviews.index');
-});
-
-Route::get('/dashboard/contacts', function () {
-    return view('back.contacts.index');
 });
 
 Route::middleware(['auth', 'verified', 'role:user|admin'])

@@ -3,58 +3,27 @@
         <div class="design mt-48">
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="{{ asset('front/assets/media/cars/pngwing-17.png') }}" alt="car">
+                    <img src="{{ asset('storage/' . $aboutSection->main_image) }}" alt="car">
                 </div>
                 <div class="col-lg-6">
                     <div class="txt-block">
-                        <h2 class="mb-12">Your Gateway to Seamless <br class="d-xl-block  d-none"> Adventures</h2>
-                        <p class="mb-32">Embark on your journey with ease and flexibility through RapidRide, your
-                            premier
-                            destination for rental cars. Whether you're planning a cross-country road trip, a
-                            weekend getaway, or simply need a reliable ride for your daily commute, RapidRide has
-                            you covered.</p>
+                        <h2 class="mb-12">{{ $aboutSection->main_title }}</h2>
+                        <p class="mb-32">{{ $aboutSection->main_description }}</p>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="pic">
-                                    <img src="{{ asset('front/assets/media/icons/vector.png') }}" alt="plane">
-                                    <div class="text">
-                                        <h6>Airport Pick-ups.</h6>
-                                        <p class="mb-24">Embark on your journey with ease and flexibility through
-                                            RapidRide.</p>
+                            @foreach ($aboutSection->sections as $section)
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="pic">
+                                        <img src="{{ asset('front/assets/media/icons/Vector4.png') }}" alt="icon">
+                                        <!-- Dynamic icon -->
+                                        <div class="text">
+                                            <h6>{{ $section['title'] }}</h6>
+                                            <p class="mb-24">{{ $section['description'] }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="icon">
-                                    <img src="{{ asset('front/assets/media/icons/vector2.png') }}" alt="earth">
-                                    <div class="text">
-                                        <h6>Global Network.</h6>
-                                        <p class="mb-24">Embark on your journey with ease and flexibility through
-                                            RapidRide.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 mb-32">
-                                <div class="pic">
-                                    <img src="{{ asset('front/assets/media/icons/Vector3.png') }}" alt="people">
-                                    <div class="text">
-                                        <h6>Secure Payment Method.</h6>
-                                        <p>Embark on your journey with ease and flexibility through RapidRide.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="icon">
-                                    <img src="{{ asset('front/assets/media/icons/Vector4.png') }}" alt="car">
-                                    <div class="text">
-                                        <h6>Clean And Sanitized Cars.</h6>
-                                        <p class="mb-8">Embark on your journey with ease and flexibility through
-                                            RapidRide.</p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <a href="about.html" class="cus-btn">
+                        <a href="{{ route('about') }}" class="cus-btn">
                             <span class="btn-text">
                                 About us
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
