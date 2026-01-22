@@ -37,6 +37,8 @@ Route::get('cars/category/{slug}', function ($slug) {
 })->name('cars.byCategory');
 Route::post('/car-request', [RentalController::class, 'store'])->name('car.request.store');
 Route::get('/car-price/{id}', [HomepageController::class, 'getCarPrice']);
+Route::get('cars/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
+
 
 
 Route::get('/dashboard/reviews', function () {

@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Models\Car;
 use App\Models\CarRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RentalController extends Controller
 {
     public function index()
     {
-        return view('front.rental.index');
+        $cars = Car::latest()->paginate(6);
+        return view('front.rental.index', compact('cars'));
     }
 
-    public function detail()
+    public function detail($slug)
     {
-        return view('front.rental.detail');
+        $car = Car::with(['galleries', 'reviews.user'])->where('slug', $slug)->firstOrFail();
+        return view('front.rental.detail', compact('car'));
     }
 
     public function booking()

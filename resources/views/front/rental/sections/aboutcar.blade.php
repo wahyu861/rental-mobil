@@ -21,68 +21,18 @@
                     </a>
                 </div>
                 <div class="rental-slider">
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-7.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-8.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-9.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-10.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-11.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-7.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-8.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-9.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-10.png') }}" alt="banner">
-                    </div>
-                    <div class="rental-slide">
-                        <img src="{{ asset('front/assets/media/hero/pngwing-11.png') }}" alt="banner">
-                    </div>
+                    @foreach ($car->galleries as $gallery)
+                        <div class="rental-slide">
+                            <img src="{{ asset('storage/' . $gallery->image) }}" alt="Car Image">
+                        </div>
+                    @endforeach
                 </div>
                 <div class="as-nav-slider">
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-12.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-13.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-14.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-15.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-16.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-12.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-13.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-14.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-15.png') }}" alt="car">
-                    </div>
-                    <div class="img-box">
-                        <img src="{{ asset('front/assets/media/cars/pngwing-16.png') }}" alt="car">
-                    </div>
+                    @foreach ($car->galleries as $gallery)
+                        <div class="img-box">
+                            <img src="{{ asset('storage/' . $gallery->image) }}" alt="Car Thumbnail">
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <div class="col-lg-4">
@@ -97,8 +47,9 @@
                             </svg>
                             <h5>4.8</h5>
                         </div>
-                        <h4 class="mb-4">Jeep Defender</h4>
-                        <h6 class="mb-16">$69 / Hour</h6>
+                        <h4 class="mb-4" id="car-name">{{ $car->name }}</h4>
+                        <input type="hidden" name="car_id" value="{{ $car->id }}">
+                        <h6 id="car-price" class="mb-16">Rp. {{ $car->price }} / Hari</h6>
                         <div class="d-flex gap-8">
                             <div class="d-flex gap-8">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -107,48 +58,256 @@
                                         d="M12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 15.4 11.05 21.5 11.35 21.76C11.5311 21.9149 11.7616 22.0001 12 22.0001C12.2384 22.0001 12.4689 21.9149 12.65 21.76C13 21.5 20 15.4 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2ZM12 19.65C9.87 17.65 6 13.34 6 10C6 8.4087 6.63214 6.88258 7.75736 5.75736C8.88258 4.63214 10.4087 4 12 4C13.5913 4 15.1174 4.63214 16.2426 5.75736C17.3679 6.88258 18 8.4087 18 10C18 13.34 14.13 17.66 12 19.65ZM12 6C11.2089 6 10.4355 6.2346 9.77772 6.67412C9.11992 7.11365 8.60723 7.73836 8.30448 8.46927C8.00173 9.20017 7.92252 10.0044 8.07686 10.7804C8.2312 11.5563 8.61216 12.269 9.17157 12.8284C9.73098 13.3878 10.4437 13.7688 11.2196 13.9231C11.9956 14.0775 12.7998 13.9983 13.5307 13.6955C14.2616 13.3928 14.8864 12.8801 15.3259 12.2223C15.7654 11.5645 16 10.7911 16 10C16 8.93913 15.5786 7.92172 14.8284 7.17157C14.0783 6.42143 13.0609 6 12 6ZM12 12C11.6044 12 11.2178 11.8827 10.8889 11.6629C10.56 11.4432 10.3036 11.1308 10.1522 10.7654C10.0009 10.3999 9.96126 9.99778 10.0384 9.60982C10.1156 9.22186 10.3061 8.86549 10.5858 8.58579C10.8655 8.30608 11.2219 8.1156 11.6098 8.03843C11.9978 7.96126 12.3999 8.00087 12.7654 8.15224C13.1308 8.30362 13.4432 8.55996 13.6629 8.88886C13.8827 9.21776 14 9.60444 14 10C14 10.5304 13.7893 11.0391 13.4142 11.4142C13.0391 11.7893 12.5304 12 12 12Z"
                                         fill="#5D5D5D" />
                                 </svg>
-                                <p>Location :</p>
-                                <p>Old BrookFeild Street, USA </p>
+                                <p>{{ $car->location }} </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
                                     <path
                                         d="M21.9201 11.6C19.9001 6.91 16.1001 4 12.0001 4C7.90007 4 4.10007 6.91 2.08007 11.6C2.025 11.7262 1.99658 11.8623 1.99658 12C1.99658 12.1377 2.025 12.2738 2.08007 12.4C4.10007 17.09 7.90007 20 12.0001 20C16.1001 20 19.9001 17.09 21.9201 12.4C21.9751 12.2738 22.0036 12.1377 22.0036 12C22.0036 11.8623 21.9751 11.7262 21.9201 11.6ZM12.0001 18C8.83007 18 5.83007 15.71 4.10007 12C5.83007 8.29 8.83007 6 12.0001 6C15.1701 6 18.1701 8.29 19.9001 12C18.1701 15.71 15.1701 18 12.0001 18ZM12.0001 8C11.2089 8 10.4356 8.2346 9.77779 8.67412C9.11999 9.11365 8.6073 9.73836 8.30455 10.4693C8.0018 11.2002 7.92258 12.0044 8.07693 12.7804C8.23127 13.5563 8.61223 14.269 9.17164 14.8284C9.73105 15.3878 10.4438 15.7688 11.2197 15.9231C11.9956 16.0775 12.7999 15.9983 13.5308 15.6955C14.2617 15.3928 14.8864 14.8801 15.3259 14.2223C15.7655 13.5645 16.0001 12.7911 16.0001 12C16.0001 10.9391 15.5786 9.92172 14.8285 9.17157C14.0783 8.42143 13.0609 8 12.0001 8ZM12.0001 14C11.6045 14 11.2178 13.8827 10.8889 13.6629C10.56 13.4432 10.3037 13.1308 10.1523 12.7654C10.0009 12.3999 9.96133 11.9978 10.0385 11.6098C10.1157 11.2219 10.3061 10.8655 10.5859 10.5858C10.8656 10.3061 11.2219 10.1156 11.6099 10.0384C11.9978 9.96126 12.4 10.0009 12.7654 10.1522C13.1309 10.3036 13.4432 10.56 13.663 10.8889C13.8828 11.2178 14.0001 11.6044 14.0001 12C14.0001 12.5304 13.7894 13.0391 13.4143 13.4142C13.0392 13.7893 12.5305 14 12.0001 14Z"
                                         fill="#5D5D5D" />
                                 </svg>
-                                <p>Views:</p>
-                                <p>1246+</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="side-bar-2 mt-24">
                     <div class="form">
-                        <h5 class="mb-24">Check Availability</h5>
-                        <p class="mb-8 fw-600 dark-gray">Pick-up Location</p>
-                        <input type="text" class="mb-12" placeholder="Brook Field St, Newark, USA ">
-                        <p class="mb-8 fw-600 dark-gray">Drop-off Location</p>
-                        <input type="text" class="mb-12" placeholder="Brook Field St, Newark, USA ">
-                        <p class="fw-600 mb-8 dark-gray">Pick-Up Date</p>
-                        <div class="d-flex gap-24">
-                            <input type="text" class="mb-12" placeholder="June 11, 2024 ">
-                            <input type="text" class="mb-12" placeholder="11: 00 AM">
+                        @csrf
+                        <p class="mb-8 fw-600 dark-gray">Pilih Provinsi</p>
+                        <select id="province-select" name="province" class="form-select mb-12">
+                            <option value="">Pilih Provinsi</option>
+                            <!-- Daftar provinsi di sini -->
+                        </select>
+                        <p class="mb-8 fw-600 dark-gray">Pilih Kabupaten/Kota</p>
+                        <select id="regency-select" name="regency" class="form-select mb-12" disabled>
+                            <option value="">Pilih Kabupaten/Kota</option>
+                        </select>
+                        <p class="mb-8 fw-600 dark-gray">Pilih Kecamatan</p>
+                        <select id="district-select" name="district" class="form-select mb-12" disabled>
+                            <option value="">Pilih Kecamatan</option>
+                            <!-- Daftar kecamatan di sini -->
+                        </select>
+                        <p class="mb-8 fw-600 dark-gray">Pilih Desa/Kelurahan</p>
+                        <select id="village-select" name="village" class="form-select mb-12" disabled>
+                            <option value="">Pilih Desa/Kelurahan</option>
+                            <!-- Daftar desa/kelurahan di sini -->
+                        </select>
+                        <p class="mb-8 fw-600 dark-gray">Nama Lengkap</p>
+                        @if (Auth::check())
+                            <input type="text" class="mb-12" name="name" value="{{ Auth::user()->name }}"
+                                required>
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        @else
+                            <input type="text" class="mb-12" name="name" placeholder="Masukkan Nama Lengkap"
+                                required>
+                        @endif
+                        <p class="mb-8 fw-600 dark-gray">Alamat Lengkap</p>
+                        <input type="text" class="mb-12" name="address" placeholder="Masukkan Gang/Dukuh/RT/RW"
+                            required>
+                        <p class="mb-8 fw-600 dark-gray">Nomor HP</p>
+                        <input type="text" class="mb-12" name="phone" placeholder="081xxxxxx" required>
+                        <div class="input-group mb-5">
+                            <p class="mb-8 fw-600 dark-gray">Tgl. Pemakaian</p>
+                            <input type="text" name="date" id="checkIn-2" class="sel-input date_to"
+                                placeholder="Select Date" required>
                         </div>
-                        <p class="fw-600 mb-8 dark-gray">DROP-OFF-date</p>
-                        <div class="d-flex gap-24">
-                            <input type="text" class="mb-12" placeholder="June 11, 2024 ">
-                            <input type="text" class="mb-12" placeholder="11: 00 AM">
-                        </div>
-                        <a href="{{ route('booking') }}" class="cus-btn">
-                            <span class="btn-text">
-                                Check Availibility
-                            </span>
-                            <span>
-                                Check Availibility
-                            </span>
-                        </a>
+                        @if (Auth::check())
+                            <button type="submit" id="booking-button" class="cus-btn">
+                                <span class="btn-text">
+                                    Booking Sekarang
+                                </span>
+                                <span>
+                                    Booking Sekarang
+                                </span>
+                            </button>
+                        @else
+                            <!-- Jika user belum login -->
+                            <a href="#" class="btn btn-primary">Booking Sekarang</a>
+                        @endif
+
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    // Mengambil data provinsi dari API
+    fetch(`https://kurniaandi.github.io/api-wilayah-indonesia/api/provinces.json`)
+        .then(response => response.json())
+        .then(data => {
+            const provinceSelect = document.getElementById('province-select');
+
+            // Menambahkan setiap provinsi sebagai option di dropdown
+            data.forEach(province => {
+                const option = document.createElement('option');
+                option.value = province.id; // ID provinsi
+                option.textContent = province.name; // Nama provinsi
+                provinceSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching provinces:', error)); // Tangani error
+
+    // Menangani perubahan pada dropdown provinsi
+    document.getElementById('province-select').addEventListener('change', function() {
+        const provinceId = this.value;
+        const regencySelect = document.getElementById('regency-select');
+        const districtSelect = document.getElementById('district-select');
+        const villageSelect = document.getElementById('village-select');
+        regencySelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>'; // Reset dropdown kabupaten
+        districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>'; // Reset dropdown kecamatan
+        villageSelect.innerHTML =
+        '<option value="">Pilih Desa/Kelurahan</option>'; // Reset dropdown desa/kelurahan
+        regencySelect.disabled = true; // Nonaktifkan dropdown kabupaten
+        districtSelect.disabled = true; // Nonaktifkan dropdown kecamatan
+        villageSelect.disabled = true; // Nonaktifkan dropdown desa/kelurahan
+
+        if (provinceId) {
+            // Fetch kabupaten/kota berdasarkan ID provinsi yang dipilih
+            fetch(`https://kurniaandi.github.io/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
+                .then(response => response.json())
+                .then(regencies => {
+                    // Menambahkan setiap kabupaten/kota sebagai option di dropdown
+                    regencies.forEach(regency => {
+                        const option = document.createElement('option');
+                        option.value = regency.id; // ID kabupaten/kota
+                        option.textContent = regency.name; // Nama kabupaten/kota
+                        regencySelect.appendChild(option);
+                    });
+                    regencySelect.disabled = false; // Aktifkan dropdown kabupaten
+                })
+                .catch(error => console.error('Error fetching regencies:', error)); // Tangani error
+        }
+    });
+
+    // Menangani perubahan pada dropdown kabupaten/kota
+    document.getElementById('regency-select').addEventListener('change', function() {
+        const regencyId = this.value;
+        const districtSelect = document.getElementById('district-select');
+        const villageSelect = document.getElementById('village-select');
+        districtSelect.innerHTML = '<option value="">Pilih Kecamatan</option>'; // Reset dropdown kecamatan
+        villageSelect.innerHTML =
+        '<option value="">Pilih Desa/Kelurahan</option>'; // Reset dropdown desa/kelurahan
+        districtSelect.disabled = true; // Nonaktifkan dropdown kecamatan
+        villageSelect.disabled = true; // Nonaktifkan dropdown desa/kelurahan
+
+        if (regencyId) {
+            // Fetch kecamatan berdasarkan ID kabupaten yang dipilih
+            fetch(`https://kurniaandi.github.io/api-wilayah-indonesia/api/districts/${regencyId}.json`)
+                .then(response => response.json())
+                .then(districts => {
+                    // Menambahkan setiap kecamatan sebagai option di dropdown
+                    districts.forEach(district => {
+                        const option = document.createElement('option');
+                        option.value = district.id; // ID kecamatan
+                        option.textContent = district.name; // Nama kecamatan
+                        districtSelect.appendChild(option);
+                    });
+                    districtSelect.disabled = false; // Aktifkan dropdown kecamatan
+                })
+                .catch(error => console.error('Error fetching districts:', error)); // Tangani error
+        }
+    });
+
+    // Menangani perubahan pada dropdown kecamatan
+    document.getElementById('district-select').addEventListener('change', function() {
+        const districtId = this.value;
+        const villageSelect = document.getElementById('village-select');
+        villageSelect.innerHTML =
+        '<option value="">Pilih Desa/Kelurahan</option>'; // Reset dropdown desa/kelurahan
+        villageSelect.disabled = true; // Nonaktifkan dropdown desa/kelurahan
+
+        if (districtId) {
+            // Fetch desa/kelurahan berdasarkan ID kecamatan yang dipilih
+            fetch(`https://kurniaandi.github.io/api-wilayah-indonesia/api/villages/${districtId}.json`)
+                .then(response => response.json())
+                .then(villages => {
+                    // Menambahkan setiap desa/kelurahan sebagai option di dropdown
+                    villages.forEach(village => {
+                        const option = document.createElement('option');
+                        option.value = village.id; // ID desa/kelurahan
+                        option.textContent = village.name; // Nama desa/kelurahan
+                        villageSelect.appendChild(option);
+                    });
+                    villageSelect.disabled = false; // Aktifkan dropdown desa/kelurahan
+                })
+                .catch(error => console.error('Error fetching villages:', error)); // Tangani error
+        }
+    });
+    document.getElementById('booking-button').addEventListener('click', function() {
+        let carPriceElement = document.getElementById("car-price").innerText;
+        let price = parseFloat(carPriceElement.replace("Rp. ", "").replace(" / Hari", "").replace(/\./g, '')
+            .replace(/\,/g, '.'));
+        price = price / 100;
+        const usageDate = new Date(document.querySelector('input[name="date"]').value);
+        const formattedUsageDate = usageDate.toISOString().split('T')[0];
+        const userIdElement = document.querySelector('input[name="user_id"]');
+        const userId = userIdElement ? userIdElement.value : null;
+        const carIdElement = document.querySelector('input[name="car_id"]');
+        const carId = carIdElement ? carIdElement.value : null;
+        const data = {
+            province_id: document.getElementById('province-select').value,
+            province_name: document.getElementById('province-select').selectedOptions[0].text,
+            regency_id: document.getElementById('regency-select').value,
+            regency_name: document.getElementById('regency-select').selectedOptions[0].text,
+            district_id: document.getElementById('district-select').value,
+            district_name: document.getElementById('district-select').selectedOptions[0].text,
+            village_id: document.getElementById('village-select').value,
+            village_name: document.getElementById('village-select').selectedOptions[0].text,
+            name: document.querySelector('input[name="name"]').value,
+            address: document.querySelector('input[name="address"]').value,
+            phone: document.querySelector('input[name="phone"]').value,
+            usage_date: formattedUsageDate,
+            price: price,
+            user_id: userId,
+            car_id: carId,
+            car_name: document.getElementById('car-name').innerText,
+        };
+        fetch('/create-booking', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+
+
+                if (data.snap_token) {
+                    snap.pay(data.snap_token, {
+                        onSuccess: function(result) {
+                            console.log('Payment Success:', result);
+
+                            window.location.href = "http://127.0.0.1:8000/rental";
+                        },
+                        onPending: function(result) {
+                            console.log('Payment Pending:', result);
+
+                        },
+                        onError: function(result) {
+                            console.log('Payment Error:', result);
+
+                        },
+                        onClose: function() {
+                            console.log('Payment dialog closed');
+
+                        }
+                    });
+                } else {
+                    console.error('Snap token tidak tersedia');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
