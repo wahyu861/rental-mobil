@@ -29,15 +29,13 @@ Route::get('/booking', [RentalController::class, 'booking'])->name('booking');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::get('car/{slug}', function ($slug) {
-    return view('cars.detail', ['slug' => $slug]);
-})->name('vehicle.details');
-Route::get('cars/category/{slug}', function ($slug) {
-    return view('cars.detail', ['slug' => $slug]);
-})->name('cars.byCategory');
+Route::get('car/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
+Route::get('cars/category/{slug}', [RentalController::class, 'showByCategory'])->name('cars.byCategory');
 Route::post('/car-request', [RentalController::class, 'store'])->name('car.request.store');
 Route::get('/car-price/{id}', [HomepageController::class, 'getCarPrice']);
 Route::get('cars/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
+Route::post('/create-booking', [BookingController::class, 'createBooking']);
+Route::post('/reviews/store', [BookingController::class, 'storeReview'])->name('reviews.store');
 
 
 

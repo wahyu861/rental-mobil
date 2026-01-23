@@ -70,7 +70,8 @@
     <script src="{{ asset('front/assets/js/vendor/picker.date.js') }}"></script>
     <script src="{{ asset('front/assets/js/date.js') }}"></script>
     <script src="{{ asset('front/assets/js/app.js') }}"></script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="UBAH DENGAN CLIENT KEY ANDA">
+        < /body>
 
-</body>
-
-</html>
+        <
+        /html>
