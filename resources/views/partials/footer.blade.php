@@ -3,16 +3,17 @@
         <div class="row mb-16 row-gap-4">
             <div class="col-lg-3">
                 <div class="txt-block">
-                    <a href="index-2.html">
-                        <img src="{{ asset('front/assets/media/footer/logo.png') }}" alt="logo">
-                        <img src="{{ asset('front/assets/media/footer/Frame-173.png') }}" alt="Frame">
+                    <a href="{{ url('/') }}">
+                        @if (isset($settings->footer_logo) && $settings->footer_logo)
+                            <img src="{{ asset('storage/' . $settings->footer_logo) }}" alt="logo">
+                        @else
+                            <img src="{{ asset('front/assets/media/footer/logo.png') }}" alt="logo">
+                        @endif
                     </a>
                 </div>
-                <p class="mb-32">Lorem ipsum dolor sit amet consectetur. Tellus varius senectus quis tellus ipsum
-                    nunc
-                    dictum sed. Nunc nam neque aliquam quis purus.</p>
+                <p class="mb-32">{{ $settings->footer_description ?? 'Deskripsi footer berada di sini' }}</p>
                 <h6 class="white mb-16">Subscribe To Our Newsletter</h6>
-                <form action="" class="newsletter-form">
+                <form action="https://uiparadox.co.uk/public/templates/rapid-ride/index.html" class="newsletter-form">
                     <input type="email" name="email" id="eMail" class="form-input"
                         placeholder=" Your email address">
                     <button type="submit">
@@ -34,16 +35,16 @@
                             <h6 class="mb-32">Quick Links</h6>
                             <ul class="unstyled">
                                 <li class="mb-12">
-                                    <a href="#">Home </a>
+                                    <a href="index-2.html">Home </a>
                                 </li>
                                 <li class="mb-12">
-                                    <a href="#">About Us</a>
+                                    <a href="about.html">About Us</a>
                                 </li>
                                 <li class="mb-12">
-                                    <a href="#">Blogs</a>
+                                    <a href="blogs.html">Blogs</a>
                                 </li>
                                 <li class="mb-12">
-                                    <a href="#">Contact Us</a>
+                                    <a href="contact.html">Contact Us</a>
                                 </li>
                             </ul>
                         </div>
@@ -53,16 +54,16 @@
                             <h6 class="mb-32">Information</h6>
                             <ul class="unstyled">
                                 <li class="mb-12">
-                                    <a href="#">Rentals</a>
+                                    <a href="rental.html">Rentals</a>
                                 </li>
                                 <li class="mb-12">
-                                    <a href="#">Booking Form</a>
+                                    <a href="book-now.html">Booking Form</a>
                                 </li>
                                 <li class="mb-12">
-                                    <a href="#">Booking Details</a>
+                                    <a href="booking.html">Booking Details</a>
                                 </li>
                                 <li class="mb-12">
-                                    <a href="#">Brands</a>
+                                    <a href="index-2.html">Brands</a>
                                 </li>
                             </ul>
                         </div>
@@ -124,8 +125,13 @@
             </div>
         </div>
         <div class="hr-line  bg-light-gray"></div>
-        <p class="mt-32 pb-32 text-center">@2024 All Rights Copyright <span class="fw-700 color-sec">Rental
-                Mobil.</span>
-            Design & Developed By Lagikoding</p>
+        <p class="mt-32 pb-32 text-center">
+            @if (isset($settings->copyright_text) && !empty($settings->copyright_text))
+                {{ $settings->copyright_text }}
+            @else
+                Teks Copyright Footer berada Disini
+            @endif
+        </p>
+
     </div>
 </footer>

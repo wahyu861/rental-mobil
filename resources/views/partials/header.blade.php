@@ -2,8 +2,13 @@
     <div class="container-fluid">
         <nav class="navigation d-flex align-items-center justify-content-between">
             <a href="{{ url('/') }}" class="d-flex align-items-center">
-                <img src="{{ asset('front/assets/media/user/logo.png') }}" alt="/logo" class="header-logo">
+                @if (isset($settings->header_logo) && $settings->header_logo)
+                    <img src="{{ asset('storage/' . $settings->header_logo) }}" alt="logo" class="header-logo">
+                @else
+                    <img src="{{ asset('front/assets/media/user/logo.png') }}" alt="logo" class="header-logo">
+                @endif
             </a>
+
             <div class="menu-button-right">
                 <div class="main-menu__nav">
                     <ul class="main-menu__list">

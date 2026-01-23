@@ -36,6 +36,9 @@ Route::get('/car-price/{id}', [HomepageController::class, 'getCarPrice']);
 Route::get('cars/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
 Route::post('/create-booking', [BookingController::class, 'createBooking']);
 Route::post('/reviews/store', [BookingController::class, 'storeReview'])->name('reviews.store');
+Route::resource('blogs', BlogController::class);
+Route::post('/savereport', [ContactController::class, 'store'])->name('report.store');
+
 
 
 
