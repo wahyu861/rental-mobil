@@ -125,4 +125,35 @@ class AuthController extends Controller
             'message' => 'Invalid credentials.',
         ], 401);
     }
+
+    public function updateUser(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|confirmed|min:8',
+        ]);
+
+        try {
+            $user->name = $validatedData['name'];
+            $user->email = $validatedData['email'];
+
+            if (!empty($validatedData['password'])) {
+                $user->password = Hash::make($validatedData['password']);
+            }
+
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User updated successfully.',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update user: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
 }
