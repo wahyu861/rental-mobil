@@ -26,57 +26,46 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/rental', [RentalController::class, 'index'])->name('rental');
 Route::get('/detail', [RentalController::class, 'detail'])->name('detail');
 Route::get('/booking', [RentalController::class, 'booking'])->name('booking');
-Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-Route::get('/blogdetail', [BlogController::class, 'detail'])->name('blog.detail');
+Route::resource('blogs', BlogController::class);
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::get('car/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
-Route::get('cars/category/{slug}', [RentalController::class, 'showByCategory'])->name('cars.byCategory');
+Route::post('/savereport', [ContactController::class, 'store'])->name('report.store');
+Route::get('cars/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
+Route::get('/cars/category/{slug}', [RentalController::class, 'showByCategory'])->name('cars.byCategory');
 Route::post('/car-request', [RentalController::class, 'store'])->name('car.request.store');
 Route::get('/car-price/{id}', [HomepageController::class, 'getCarPrice']);
-Route::get('cars/{slug}', [RentalController::class, 'detail'])->name('vehicle.details');
 Route::post('/create-booking', [BookingController::class, 'createBooking']);
 Route::post('/reviews/store', [BookingController::class, 'storeReview'])->name('reviews.store');
-Route::resource('blogs', BlogController::class);
-Route::post('/savereport', [ContactController::class, 'store'])->name('report.store');
 
 
 
 
-Route::get('/dashboard/reviews', function () {
-    return view('back.reviews.index');
-});
-
-Route::middleware(['auth', 'verified', 'role:user|admin'])
-    ->prefix('dashboard')
-    ->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
-        Route::get('/bookings/{id}', [BookingController::class, 'detail'])->name('bookings.detail');
-        Route::get('/requests', [BookingController::class, 'CarRequest'])->name('requests');
-        Route::get('/requests/{id}', [BookingController::class, 'show'])->name('requests.show');
-        Route::get('/edit_profile', [UserController::class, 'editUser'])->name('edit.profile');
-        Route::put('/update_profile/{user}', [UserController::class, 'updateUser'])->name('update.profile');
-        Route::resource('/category', CategoryController::class);
-        Route::resource('cars', CarController::class);
-        Route::post('/cars/upload-images', [CarController::class, 'uploadImages'])->name('cars.uploadImages');
-        Route::post('/cars/remove-image', [CarController::class, 'removeImage'])->name('cars.removeImage');
-        Route::get('/cars/add-images/{car}', [CarController::class, 'addImages'])->name('cars.addImages');
-        Route::resource('/about_us', AboutUsController::class);
-        Route::resource('/blogs', BackBlogController::class);
-        Route::post('/image_upload', [BackBlogController::class, 'image_upload'])->name('image.upload');
-        Route::post('/image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
-        Route::resource('/hero', HeroController::class);
-        Route::resource('/abouts', AboutSectionController::class);
-        Route::resource('/faqs', FaqController::class);
-        Route::resource('features', FeatureController::class);
-        Route::resource('users', UserController::class);
-        Route::resource('settings', SettingController::class);
-    });
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth', 'verified'])->prefix('/dashboard')->group(function () {
+    Route::get('/index', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/bookings', [BackBookingController::class, 'index'])->name('bookings');
+    Route::get('/requests', [BackBookingController::class, 'CarRequest'])->name('requests');
+    Route::get('/requests/{id}', [BackBookingController::class, 'show'])->name('requests.show');
+    Route::get('/bookings/{id}', [BackBookingController::class, 'detail'])->name('bookings.detail');
+    Route::get('/edit_profile', [UserController::class, 'editUser'])->name('edit.profile');
+    Route::put('/update_profile/{user}', [UserController::class, 'updateUser'])->name('update.profile');
+    Route::resource('/cars', CarController::class);
+    Route::resource('/settings', SettingController::class);
+    Route::resource('/category', CategoryController::class);
+    Route::post('/cars/upload-images', [CarController::class, 'uploadImages'])->name('cars.uploadImages');
+    Route::post('/cars/remove-image', [CarController::class, 'removeImage'])->name('cars.removeImage');
+    Route::get('/cars/add-images/{car}', [CarController::class, 'addImages'])->name('cars.addImages');
+    Route::resource('/about_us', BackAboutUsController::class);
+    Route::resource('/blogs', BackBlogController::class);
+    Route::post('/image_upload', [BackBlogController::class, 'image_upload'])->name('image.upload');
+    Route::post('/image_delete', [BackBlogController::class, 'deleteImage'])->name('image.delete');
+    Route::resource('/hero', HeroController::class);
+    Route::resource('/abouts', AboutSectionController::class);
+    Route::resource('/faqs', FaqController::class);
+    Route::resource('/features', FeatureController::class);
+    Route::resource('/users', UserController::class);
+    Route::resource('/contacts', BackContactController::class);
+    Route::resource('/reviews', ReviewController::class);
+    Route::get('/notifications', [NotificationController::class, 'getNotifications']);
+    Route::post('/notifications/clear', [NotificationController::class, 'clearAllNotifications']);
 });
 
 require __DIR__ . '/auth.php';
